@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import { createContext } from 'react';
+export const SettingsContext = createContext({});
 
-export const SettingContext = React.creatContext();
+// function Settings(props) {
+//   const [taskDisplay, setTaskDisplay] = useState(true);
 
-function Settings(props) {
-  const [taskDisplay, setTaskDisplay] = useState(false);
+//   const state = { 
+//     taskDisplay,
+//     setTaskDisplay,
+//   }
 
-  const state = { 
-    taskDisplay,
-    setTaskDisplay,
-  }
+//   return (
+//     <SettingContext.Provider value={state}>
+//       {props.children}
+//     </SettingContext.Provider>
+//   )
+// }
 
-  return (
-    <SettingContext.Provider value={state}>
-      {props.children}
-    </SettingContext.Provider>
-  )
-}
+// export default Settings;
 
-export default Settings;
+

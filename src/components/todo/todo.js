@@ -1,85 +1,72 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { Card, Form, Button, Navbar, Container } from 'react-bootstrap';
 import useForm from '../../hooks/form.js';
+import TodoList from '../list/list';
+import { SettingsContext } from '../../context/settings';
+import Pages from '../pages/pages'
+// import { SettingsContext } from '../../App';
+import './todo.css';
 
 import { v4 as uuid } from 'uuid';
 
 const ToDo = () => {
-
-  const [list, setList] = useState([]);
-  const [incomplete, setIncomplete] = useState([]);
+  const { setting, setSetting } = useContext(SettingsContext);
   const { handleChange, handleSubmit } = useForm(addItem);
 
   function addItem(item) {
     console.log(item);
     item.id = uuid();
     item.complete = false;
-    setList([...list, item]);
-  }
-
-  function deleteItem(id) {
-    const items = list.filter( item => item.id !== id );
-    setList(items);
-  }
-
-  function toggleComplete(id) {
-
-    const items = list.map( item => {
-      if ( item.id == id ) {
-        item.complete = ! item.complete;
-      }
-      return item;
+    setSetting({
+      ...setting,
+      list: [...setting.list, item],
     });
-
-    setList(items);
-
   }
+
+  // function deleteItem(id) {
+  //   const items = list.filter(item => item.id !== id);
+  //   setList(items);
+  // }
 
   useEffect(() => {
-    let incompleteCount = list.filter(item => !item.complete).length;
-    setIncomplete(incompleteCount);
-    document.title = `To Do List: ${incomplete}`;
-  }, [list]);
+    let incompleteCount = setting.list.filter(item => !item.complete).length;
+    setSetting({
+      ...setting,
+      incomplete: incompleteCount
+    });
+    document.title = `To Do List: ${setting.incomplete}`;
+  }, [setting.list]);
 
   return (
     <>
-      <header>
-        <h1>To Do List: {incomplete} items pending</h1>
-      </header>
+      <Container fluid>
+        <Navbar className="mb-3 mt-3" bg="dark" variant="dark">
+          <Navbar.Brand href="#home">To Do List: {setting.incomplete} items pending</Navbar.Brand>
+        </Navbar>
 
-      <form onSubmit={handleSubmit}>
-
-        <h2>Add To Do Item</h2>
-
-        <label>
-          <span>To Do Item</span>
-          <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-        </label>
-
-        <label>
-          <span>Assigned To</span>
-          <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-        </label>
-
-        <label>
-          <span>Difficulty</span>
-          <input onChange={handleChange} defaultValue={3} type="range" min={1} max={5} name="difficulty" />
-        </label>
-
-        <label>
-          <button type="submit">Add Item</button>
-        </label>
-      </form>
-
-      {list.map(item => (
-        <div key={item.id}>
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-          <hr />
-        </div>
-      ))}
-
+        <Form onSubmit={handleSubmit}>
+          <Card style={{ width: '18rem' }}>
+            <Card.Header>Add To Do Item</Card.Header>
+            <Card.Body>
+              <Form.Group>
+                <Form.Label>To Do Item</Form.Label>
+                <Form.Control onChange={handleChange} name="text" type="text" placeholder="Item Details" />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Assigned To</Form.Label>
+                <Form.Control onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Difficulty</Form.Label>
+                <Form.Range onChange={handleChange} defaultValue={3} type="range" min={1} max={5} name="difficulty" />
+              </Form.Group>
+              <Button type="submit">Add Item</Button>
+            </Card.Body>
+          </Card>
+        </Form>
+        <TodoList />
+        <Pages />
+      </Container>
     </>
   );
 };

@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ToDo from './components/todo/todo.js';
-import Settings from './context/settings';
+import Header from './components/header/header';
+import { SettingsContext } from './context/settings';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <React.Fragment>
-        <Settings>
-          <ToDo />
-        </Settings>
-      </React.Fragment>
-    );
-  }
+const App = () => {
+  const [setting, setSetting] = useState({
+    list: [],
+    incomplete: [],
+    pageNumber: 1,
+    maxPageNumber: 3,
+  })
+
+  return (
+
+    <SettingsContext.Provider value={{ setting, setSetting }}>
+      <Header />
+      <ToDo />
+    </SettingsContext.Provider>
+  );
 }
+
+export default App;
