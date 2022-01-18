@@ -8,7 +8,7 @@ const Pages = () => {
   const pages = [...Array(totalPages).keys()].map(item => item + 1);
   return (
     <div>
-      {pages ? pages.map((item, index) => <Button key={index} onClick={() => setSetting({ ...setting, pageNumber: item })}>{item}</Button>) : null}
+      {pages ? pages.map((item, index) => <Button className="m-1 center" key={index} onClick={() => setSetting({ ...setting, pageNumber: item })}>{item}</Button>) : null}
     </div>
   )
 }

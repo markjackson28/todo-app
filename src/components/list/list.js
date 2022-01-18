@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Card, Container } from 'react-bootstrap';
 import { SettingsContext } from '../../context/settings';
 
 
@@ -6,7 +7,7 @@ import { SettingsContext } from '../../context/settings';
 const TodoList = () => {
   const { setting, setSetting } = useContext(SettingsContext);
 
-  const startIndex =  (setting.pageNumber - 1) * 3;
+  const startIndex = (setting.pageNumber - 1) * 3;
   const pageSlice = setting.list.slice(startIndex, startIndex + setting.maxPageNumber)
 
   function toggleComplete(id) {
@@ -25,17 +26,21 @@ const TodoList = () => {
   }
 
   return (
-    <div>
+    <Container>
       {pageSlice.map((item, index) => (
-        <div key={index}>
-          <p>{item.text}</p>
-          <p><small>Assigned to: {item.assignee}</small></p>
-          <p><small>Difficulty: {item.difficulty}</small></p>
-          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-          <hr />
-        </div>
+        <Card key={index}>
+          <Card.Body>
+            <Card.Header>
+              <Card.Title>Assigned to: {item.assignee}</Card.Title>
+            </Card.Header>
+            <Card.Text className="mt-2">Task: {item.text}</Card.Text>
+            <Card.Text>Difficulty: {item.difficulty}</Card.Text>
+            <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
+            <hr />
+          </Card.Body>
+        </Card>
       ))}
-    </div>
+    </Container>
   )
 }
 

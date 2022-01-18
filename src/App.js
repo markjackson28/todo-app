@@ -12,7 +12,6 @@ const App = () => {
   })
 
   return (
-
     <SettingsContext.Provider value={{ setting, setSetting }}>
       <Header />
       <ToDo />
