@@ -2,8 +2,6 @@ import React, { useContext } from 'react';
 import { Card, Container } from 'react-bootstrap';
 import { SettingsContext } from '../../context/settings';
 
-
-
 const TodoList = () => {
   const { setting, setSetting } = useContext(SettingsContext);
 
@@ -28,15 +26,14 @@ const TodoList = () => {
   return (
     <Container>
       {pageSlice.map((item, index) => (
-        <Card key={index}>
+        <Card className="mb-3"key={index}>
           <Card.Body>
             <Card.Header>
               <Card.Title>Assigned to: {item.assignee}</Card.Title>
             </Card.Header>
             <Card.Text className="mt-2">Task: {item.text}</Card.Text>
             <Card.Text>Difficulty: {item.difficulty}</Card.Text>
-            <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-            <hr />
+            <Card.Text onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</Card.Text>
           </Card.Body>
         </Card>
       ))}

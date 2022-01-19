@@ -4,6 +4,7 @@ import useForm from '../../hooks/form.js';
 import TodoList from '../list/list';
 import { SettingsContext } from '../../context/settings';
 import Pages from '../pages/pages'
+import PageAmount from '../pageAmount/pageAmount';
 import './todo.css';
 
 import { v4 as uuid } from 'uuid';
@@ -40,7 +41,9 @@ const ToDo = () => {
     <>
       <Container fluid>
         <Navbar className="mb-3 mt-3" bg="dark" variant="dark">
-          <Navbar.Brand href="#home">To Do List: {setting.incomplete} items pending</Navbar.Brand>
+          <Container>
+            <Navbar.Brand href="#home">To Do List: {setting.incomplete} items pending</Navbar.Brand>
+          </Container>
         </Navbar>
         <Row>
           <Col md="auto">
@@ -58,11 +61,12 @@ const ToDo = () => {
                   </Form.Group>
                   <Form.Group>
                     <Form.Label>Difficulty</Form.Label>
-                    <Form.Range onChange={handleChange} defaultValue={3} type="range" min={1} max={5} name="difficulty" />
+                    <Form.Range onChange={handleChange} name="difficulty" defaultValue={3} type="range" min={1} max={5} />
                   </Form.Group>
                   <Button type="submit">Add Item</Button>
                 </Card.Body>
               </Card>
+              <PageAmount />
             </Form>
           </Col>
           <Col>
