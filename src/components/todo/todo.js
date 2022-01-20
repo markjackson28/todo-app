@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from 'react';
 import { Card, Form, Button, Navbar, Container, Row, Col } from 'react-bootstrap';
 import useForm from '../../hooks/form.js';
-import TodoList from '../list/list';
+import TodoList from '../List/List';
 import { SettingsContext } from '../../context/settings';
-import Pages from '../pages/pages'
-import PageAmount from '../pageAmount/pageAmount';
+import Pages from '../Pages/Pages'
+import PageAmount from '../PageAmount/PageAmount';
 import './todo.css';
 
 import { v4 as uuid } from 'uuid';
@@ -41,7 +41,7 @@ const ToDo = () => {
     <>
       <Container fluid>
         <Navbar className="mb-3 mt-3" bg="dark" variant="dark">
-          <Container>
+          <Container fluid>
             <Navbar.Brand href="#home">To Do List: {setting.incomplete} items pending</Navbar.Brand>
           </Container>
         </Navbar>

@@ -1,10 +1,12 @@
 import { Container, Navbar } from 'react-bootstrap';
+import AuthForm from '../Auth/Auth';
 
 const Header = () => {
   return (
-    <Navbar className="text-center" bg="primary" variant="dark">
-      <Container>
+    <Navbar bg="primary" variant="dark">
+      <Container fluid>
         <Navbar.Brand href="#home">Home</Navbar.Brand>
+        <AuthForm />
       </Container>
     </Navbar>
   );

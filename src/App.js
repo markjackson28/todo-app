@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ToDo from './components/todo/todo.js';
-import Header from './components/header/header';
+import ToDo from './components/Todo/Todo.js';
+import Header from './components/Header/Header';
 import { SettingsContext } from './context/settings';
 
 const App = () => {
