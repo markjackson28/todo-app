@@ -1,5 +1,4 @@
-import { createContext, useState } from "react";
-import jwt from "jsonwebtoken";
+import { createContext, useState } from 'react';
 
 const testUsers = {
   admin: {
@@ -22,23 +21,22 @@ const testUsers = {
   }
 };
 
-const secret = "oreo";
+// const secret = "oreo";
 
 export const AuthContext = createContext();
 
 export default function AuthProvider(props) {
   const [loggedIn, setloggedIn] = useState(false);
   const [capabilities, setcapabilities] = useState([]);
-  const [token, setToken] = useState();
+  const [role, setRole] = useState('');
 
   const login = (username, password) => {
+    console.log('username', username)
     if (testUsers[username]) {
       setloggedIn(true);
       setcapabilities(testUsers[username].capabilities);
-      const token = jwt.sign(username, secret);
-      // validateToken(token);
-      setToken(token);
-      console.log("Token", token);
+      setRole(testUsers[username].role);
+      // console.log("Token", token);
     }
   };
 
@@ -54,6 +52,7 @@ export default function AuthProvider(props) {
   const state = {
     loggedIn,
     capabilities,
+    role,
     login: login,
     logout: logout,
     can: can

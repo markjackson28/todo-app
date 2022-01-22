@@ -1,48 +1,17 @@
-import { Form, FormControl, Button } from 'react-bootstrap';
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/authContext';
+import { useContext } from "react";
+import { When } from "react-if";
+import { AuthContext } from "../../context/authContext";
+// create a Auth component that holds the logic that decides what to render based on a users role and capabilities
 
-const AuthForm = () => {
-  const [username, setUsername] = useState('');
+export default function Auth(props) {
   const state = useContext(AuthContext);
 
-  const handleChange = (e) => {
-    setUsername(e.target.value);
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    state.login(username)
-  }
-
-  let loginDisplay = state.loggedIn ? (
-    <Button onClick={state.logout}></Button>
-  ) : (
-    <>
-      <Form>
-        <FormControl
-          type="email"
-          placeHolder="Username"
-          className="me-2"
-          onChange={handleChange}
-        />
-      </Form>
-      <Form>
-        <FormControl
-          type="password"
-          placeHolder="Password"
-          className="me-2"
-        />
-      </Form>
-      <Button variant="secondary">Login</Button>
-    </>
-  );
+  const isLoggedIn = state.loggedIn;
+  // const canDo = state.can(props.capability);
+  // console.log('***', state)
+  // const okToRender = isLoggedIn && canDo;
+  const okToRender = isLoggedIn;
 
 
-  return (
-    <>
-      {loginDisplay}
-    </>
-  );
-};
-
-export default AuthForm;
+  return <When condition={okToRender}>{props.children}</When>;
+}

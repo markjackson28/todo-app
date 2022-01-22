@@ -1,5 +1,5 @@
 import { Container, Navbar } from 'react-bootstrap';
-import AuthForm from '../Auth/Auth';
+import AuthForm from '../Auth/AuthForm';
 
 const Header = () => {
   return (
