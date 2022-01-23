@@ -1,17 +1,23 @@
-import { Form, FormControl, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, FormControl, Button, Container } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/authContext';
 
 const AuthForm = () => {
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const state = useContext(AuthContext);
 
-  const handleChange = (e) => {
+  const handleChangeUser = (e) => {
     setUsername(e.target.value);
   }
+
+  const handleChangePass = (e) => {
+    setPassword(e.target.value);
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    state.login(username)
+    state.login(username, password);
   }
 
   console.log('**', state)
@@ -25,15 +31,16 @@ const AuthForm = () => {
           // type="email"
           placeHolder="Username"
           className="me-2"
-          onChange={handleChange}
+          onChange={handleChangeUser}
         />
       {/* </Form> */}
       {/* <Form> */}
-      {/* <FormControl
+      <FormControl
           type="password"
           placeHolder="Password"
           className="me-2"
-        /> */}
+          onChange={handleChangePass}
+        />
       <Button type="submit" variant="secondary">Login</Button>
       </Form>
     </Container>

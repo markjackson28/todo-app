@@ -40,7 +40,7 @@ npm run test
 ## Collaborators
 
 👤 **Lorenzo Ortega**
-
+👤 **Jeremy Brazell**
 
 ## UML
 
@@ -84,6 +84,19 @@ In this final phase, we’ll be requiring that users be logged in, in order to s
 - As a user, I want to ensure that only fellow users that are allowed to “create”, based on their user type, can add new To Do Items
 - As a user, I want to ensure that only fellow users that are allowed to “update”, based on their user type, can mark To Do Items complete
 - As a user, I want to ensure that only fellow users that are allowed to “delete”, based on their user type, can delete new To Do Items
+
+### Phase 4: Integrating with a live API
+
+In this final phase, we’ll be requiring that users be logged in through a live authentication server, in order to see the to do items. Additionally, based on their user type, they will be allowed (or denied) to perform actions such as editing or deleting them. All To Do items will be stored in a database, accessed through a deployed API.
+
+Alter the Add, Toggle Complete, and Delete functions within your to do application to use your API instead of in memory state.
+- Fetch the current list of items from the database on application start
+- Whenever you add/update/delete an item, refresh the state so the user can instantly see the change
+  - Consider: Do you re-fetch from the server every time you make a change?
+    - If so, how?
+    - If not, how will you stay in sync?
+Alter the Login Context to use the server to login users instead of our mock users list.
+  - Be sure to store the token in state as well as in a cookie so you can reference it later.
 
 ### Resources
 

@@ -1,4 +1,5 @@
 import { createContext, useState } from 'react';
+const axios = require('axios');
 
 const testUsers = {
   admin: {
@@ -30,13 +31,19 @@ export default function AuthProvider(props) {
   const [capabilities, setcapabilities] = useState([]);
   const [role, setRole] = useState('');
 
-  const login = (username, password) => {
-    console.log('username', username)
+  const login = async (username, password) => {
+    let userInfo = {
+      username: username,
+      password: password
+    }
+    let res = await axios.post('http://localhost:3001/signin', userInfo);
+    console.log('res', res.data);
     if (testUsers[username]) {
       setloggedIn(true);
       setcapabilities(testUsers[username].capabilities);
       setRole(testUsers[username].role);
-      // console.log("Token", token);
+    } else {
+      console.log('Login Error');
     }
   };
 
