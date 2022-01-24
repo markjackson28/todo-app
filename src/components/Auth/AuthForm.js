@@ -20,28 +20,24 @@ const AuthForm = () => {
     state.login(username, password);
   }
 
-  console.log('**', state)
-
   let loginDisplay = state.loggedIn ? (
     <Button onClick={state.logout}>Logout</Button>
   ) : (
     <Container fluid>
-      <Form onSubmit={handleSubmit}>
+      <Form className="d-flex" onSubmit={handleSubmit}>
         <FormControl
           // type="email"
           placeHolder="Username"
           className="me-2"
           onChange={handleChangeUser}
         />
-      {/* </Form> */}
-      {/* <Form> */}
-      <FormControl
+        <FormControl
           type="password"
           placeHolder="Password"
           className="me-2"
           onChange={handleChangePass}
         />
-      <Button type="submit" variant="secondary">Login</Button>
+        <Button type="submit" variant="secondary">Login</Button>
       </Form>
     </Container>
   );

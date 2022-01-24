@@ -22,29 +22,28 @@ const testUsers = {
   }
 };
 
-// const secret = "oreo";
-
 export const AuthContext = createContext();
 
 export default function AuthProvider(props) {
   const [loggedIn, setloggedIn] = useState(false);
-  const [capabilities, setcapabilities] = useState([]);
-  const [role, setRole] = useState('');
+  // const [capabilities, setcapabilities] = useState([]);
+  // const [role, setRole] = useState('');
 
   const login = async (username, password) => {
-    let userInfo = {
-      username: username,
-      password: password
-    }
-    let res = await axios.post('http://localhost:3001/signin', userInfo);
-    console.log('res', res.data);
-    if (testUsers[username]) {
-      setloggedIn(true);
-      setcapabilities(testUsers[username].capabilities);
-      setRole(testUsers[username].role);
-    } else {
-      console.log('Login Error');
-    }
+    await axios.post('http://localhost:3001/signin', {}, {
+      auth: {
+        username: username,
+        password: password
+      }
+    }).then((res) => {
+      if (res) {
+        setloggedIn(true);
+        // setcapabilities(testUsers[username].capabilities);
+        // setRole(testUsers[username].role);
+      }
+    }).catch((error) => {
+      console.log('Error on Authentication', error);
+    });
   };
 
   const logout = () => {
@@ -52,17 +51,17 @@ export default function AuthProvider(props) {
     setloggedIn(false);
   };
 
-  const can = (capability) => {
-    return capabilities.includes(capability);
-  };
+  // const can = (capability) => {
+  //   return capabilities.includes(capability);
+  // };
 
   const state = {
     loggedIn,
-    capabilities,
-    role,
-    login: login,
-    logout: logout,
-    can: can
+    // capabilities,
+    // role,
+    login,
+    logout,
+    // can: can
   };
 
   return (
