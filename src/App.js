@@ -10,7 +10,7 @@ const App = () => {
     <AuthProvider>
       <SettingsProvider>
         <Header />
-        <Auth>
+        <Auth capability="delete">
           <ToDo />
         </Auth>
       </SettingsProvider>

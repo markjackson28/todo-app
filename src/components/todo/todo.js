@@ -6,6 +6,7 @@ import { SettingsContext } from '../../context/settings';
 import Pages from '../Pages/Pages'
 import PageAmount from '../PageAmount/PageAmount';
 import './todo.css';
+import Auth from '../Auth/Auth';
 
 import { v4 as uuid } from 'uuid';
 
@@ -47,6 +48,7 @@ const ToDo = () => {
         </Navbar>
         <Row>
           <Col md="auto">
+            {/* <Auth capabilites="delete"> */}
             <Form onSubmit={handleSubmit}>
               <Card style={{ width: '18rem' }}>
                 <Card.Header>Add To Do Item</Card.Header>
@@ -68,9 +70,12 @@ const ToDo = () => {
               </Card>
               <PageAmount />
             </Form>
+            {/* </Auth> */}
           </Col>
           <Col>
-            <TodoList />
+            {/* <Auth capabilites="read"> */}
+              <TodoList />
+            {/* </Auth> */}
           </Col>
         </Row>
         <Pages />

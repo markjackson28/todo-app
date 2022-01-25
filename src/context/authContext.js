@@ -26,8 +26,9 @@ export const AuthContext = createContext();
 
 export default function AuthProvider(props) {
   const [loggedIn, setloggedIn] = useState(false);
-  // const [capabilities, setcapabilities] = useState([]);
-  // const [role, setRole] = useState('');
+  const [capabilities, setCapabilities] = useState([]);
+  const [role, setRole] = useState('');
+  console.log('Caps', capabilities);
 
   const login = async (username, password) => {
     await axios.post('http://localhost:3001/signin', {}, {
@@ -37,9 +38,10 @@ export default function AuthProvider(props) {
       }
     }).then((res) => {
       if (res) {
+        // console.log(res.data.user.capabilities);
         setloggedIn(true);
-        // setcapabilities(testUsers[username].capabilities);
-        // setRole(testUsers[username].role);
+        setCapabilities(res.data.user.capabilities);
+        setRole(res.data.user.role);
       }
     }).catch((error) => {
       console.log('Error on Authentication', error);
@@ -51,17 +53,17 @@ export default function AuthProvider(props) {
     setloggedIn(false);
   };
 
-  // const can = (capability) => {
-  //   return capabilities.includes(capability);
-  // };
+  const can = (capability) => {
+    return capabilities.includes(capability);
+  };
 
   const state = {
     loggedIn,
-    // capabilities,
-    // role,
+    capabilities,
+    role,
     login,
     logout,
-    // can: can
+    can
   };
 
   return (
