@@ -7,11 +7,8 @@ export default function Auth(props) {
   const state = useContext(AuthContext);
 
   const isLoggedIn = state.loggedIn;
-  const canDo = state.can(props.capability);
-  // console.log('***', state)
+  const canDo = state.can(props.capabilities);
   const okToRender = isLoggedIn && canDo;
-  // const okToRender = isLoggedIn;
-
 
   return <When condition={okToRender}>{props.children}</When>;
 }

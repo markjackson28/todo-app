@@ -48,7 +48,7 @@ const ToDo = () => {
         </Navbar>
         <Row>
           <Col md="auto">
-            {/* <Auth capabilites="delete"> */}
+            <Auth capabilities="delete">
             <Form onSubmit={handleSubmit}>
               <Card style={{ width: '18rem' }}>
                 <Card.Header>Add To Do Item</Card.Header>
@@ -70,12 +70,12 @@ const ToDo = () => {
               </Card>
               <PageAmount />
             </Form>
-            {/* </Auth> */}
+            </Auth>
           </Col>
           <Col>
-            {/* <Auth capabilites="read"> */}
+            <Auth capabilities='read'>
               <TodoList />
-            {/* </Auth> */}
+            </Auth>
           </Col>
         </Row>
         <Pages />
